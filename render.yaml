@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: studyspace
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --bind 0.0.0.0:$PORT app:app
+    envVars:
+      - key: DATABASE_PATH
+        value: /var/data/study_planner.db
+    disk:
+      name: studyspace-data
+      mountPath: /var/data
+      sizeGB: 1
