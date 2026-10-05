@@ -2,12 +2,9 @@ services:
   - type: web
     name: studyspace
     runtime: python
+    plan: free
     buildCommand: "pip install -r requirements.txt && if [ -f index.html ]; then mkdir -p templates static && cp index.html templates/index.html && cp styles.css static/styles.css && cp app.js static/app.js; fi"
     startCommand: gunicorn --bind 0.0.0.0:$PORT app:app
     envVars:
       - key: DATABASE_PATH
-        value: /var/data/study_planner.db
-    disk:
-      name: studyspace-data
-      mountPath: /var/data
-      sizeGB: 1
+        value: /tmp/study_planner.db
