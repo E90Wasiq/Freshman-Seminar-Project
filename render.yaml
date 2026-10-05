@@ -2,7 +2,7 @@ services:
   - type: web
     name: studyspace
     runtime: python
-    buildCommand: pip install -r requirements.txt
+    buildCommand: "pip install -r requirements.txt && if [ -f index.html ]; then mkdir -p templates static && cp index.html templates/index.html && cp styles.css static/styles.css && cp app.js static/app.js; fi"
     startCommand: gunicorn --bind 0.0.0.0:$PORT app:app
     envVars:
       - key: DATABASE_PATH
